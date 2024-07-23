@@ -12,8 +12,10 @@ public class ApiGatewayConfig {
     public RouteLocator routeLocator(RouteLocatorBuilder builder) {
         return builder
                 .routes()
-                    .route(predicateSpec -> predicateSpec.path("/customer/product/**")
+                    .route(predicateSpec -> predicateSpec.path("/customer/product/**", "/customer/**")
                             .uri("lb://CUSTOMER-SERVICE"))
+                    .route(predicateSpec -> predicateSpec.path("/product/**")
+                            .uri("lb://PRODUCT-SERVICE"))
                 .build();
     }
 
