@@ -1,4 +1,4 @@
-package com.eidiko.api_gateway.config;
+package com.eidiko.apigateway.config;
 
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;

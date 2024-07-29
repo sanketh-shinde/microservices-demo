@@ -1,10 +1,10 @@
-package com.eidiko.api_gateway;
+package com.eidiko.server;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApiGatewayApplicationTests {
+class EurekaServerApplicationTests {
 
 	@Test
 	void contextLoads() {
