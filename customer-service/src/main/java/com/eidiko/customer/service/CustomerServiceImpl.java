@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Slf4j
 @Service
 @AllArgsConstructor
+@Slf4j
 public class CustomerServiceImpl implements CustomerService {
 
     private CustomerRepository customerRepository;
@@ -29,9 +29,11 @@ public class CustomerServiceImpl implements CustomerService {
         CustomerDTO savedCustomerDTO = modelMapper.map(savedCustomer, CustomerDTO.class);
 
         if (savedCustomerDTO != null) {
+            log.info("Customer created with id: {}",savedCustomer.getId());
             return ResponseEntity.status(HttpStatus.CREATED).body(savedCustomerDTO);
         }
 
+        log.error("Some error occurred");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("error occurred");
     }
 
@@ -44,9 +46,11 @@ public class CustomerServiceImpl implements CustomerService {
                                              .toList();
 
         if (!list.isEmpty()) {
+            log.info("Customers Fetched");
             return ResponseEntity.status(HttpStatus.OK).body(list);
         }
 
+        log.error("No Customer Available");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("error occurred");
     }
 
@@ -58,9 +62,11 @@ public class CustomerServiceImpl implements CustomerService {
         CustomerDTO customerDTO = modelMapper.map(customer, CustomerDTO.class);
 
         if (customerDTO != null) {
+            log.info("Customer Found with email: {}", email);
             return ResponseEntity.status(HttpStatus.OK).body(customerDTO);
         }
 
+        log.error("Customer with email: {}, does not exists",email);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("Email does not exists"));
     }
 
@@ -71,9 +77,11 @@ public class CustomerServiceImpl implements CustomerService {
         CustomerDTO updatedCustomerDTO = modelMapper.map(updatedCustomer, CustomerDTO.class);
 
         if (updatedCustomerDTO != null) {
+            log.info("Customer updated");
             return ResponseEntity.status(HttpStatus.OK).body(updatedCustomerDTO);
         }
 
+        log.info("Customer does not exists");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("Customer does not exists"));
     }
 
@@ -84,9 +92,11 @@ public class CustomerServiceImpl implements CustomerService {
 
         if (deletedCustomer != null) {
             customerRepository.deleteById(id);
+            log.info("Customer with id: {}, deleted successfully", id);
             return ResponseEntity.status(HttpStatus.OK).body(deletedCustomer);
         }
 
+        log.error("Customer with id: {}, does not exists", id);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new NotFoundException("Customer does not exists"));
     }
 
